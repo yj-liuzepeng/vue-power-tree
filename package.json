@@ -1,0 +1,40 @@
+{
+  "name": "vue-power-tree",
+  "private": false,
+  "version": "0.0.3",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-power-tree.umd.js",
+  "module": "./dist/vue-power-tree.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-power-tree.es.js",
+      "require": "./dist/vue-power-tree.umd.js"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "element-plus": "^2.2.5",
+    "node-sass": "^7.0.1",
+    "path": "^0.12.7",
+    "sass-loader": "^13.0.0",
+    "style-loader": "^3.3.1",
+    "vue": "^3.2.25"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vueuse/core": "^8.6.0",
+    "sass": "^1.52.3",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9",
+    "vue-tsc": "^0.34.7"
+  }
+}
