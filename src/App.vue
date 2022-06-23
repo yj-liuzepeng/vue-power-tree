@@ -4,14 +4,22 @@
  * @Description: file content
 -->
 <template>
-  <vue-power-tree :data="data" :props="defaultProps" draggable show-checkbox tree-type="org" @node-click="handleNodeClick"
-    default-expand-all >
-    </vue-power-tree>
+  <vue-power-tree :data="data" :props="defaultProps" draggable show-checkbox tree-type="org"
+    @node-click="handleNodeClick" default-expand-all>
+    <template v-slot:icon-node="slotProps">
+      <div v-if="slotProps.node.expanded" class="minus">
+        -</div>
+      <div v-else class="plus">
+        +
+      </div>
+    </template>
+  </vue-power-tree>
 </template>
 
 <script lang="ts" setup>
-import VuePowerTree from '../dist/vue-power-tree.es.js'
-import '../dist/style.css'
+import VuePowerTree from '../packages/index.ts'
+// import VuePowerTree from "vue-power-tree"
+// import "vue-power-tree/dist/style.css"
 interface Tree {
   label: string
   children?: Tree[]
@@ -73,3 +81,15 @@ const defaultProps = {
   label: 'label',
 }
 </script>
+<style>
+.minus,
+.plus {
+  border: 1px solid red;
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

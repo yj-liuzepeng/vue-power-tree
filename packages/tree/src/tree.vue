@@ -1,20 +1,18 @@
 <template>
-  <div :class="[treeType=='org' ?'org-tree-container': '']">
-    <div ref="el$"  :class="[
-      (treeType=='org' ? 'org-tree' : 'el-tree'),
+  <div :class="[treeType == 'org' ? 'org-tree-container' : '']">
+    <div ref="el$" :class="[
+      (treeType == 'org' ? 'org-tree' : 'el-tree'),
       { 'is-dragging': !!dragState.draggingNode },
       { 'is-drop-not-allow': !dragState.allowDrop },
-      // { 'is-drop-inner': dragState.dropType === 'inner' },
       { 'el-tree--highlight-current': highlightCurrent },
     ]" role="tree">
       <el-tree-node v-for="child in root.childNodes" :key="getNodeKey(child)" :node="child" :props="props"
         :accordion="accordion" :render-after-expand="renderAfterExpand" :show-checkbox="showCheckbox"
-        :render-content="renderContent" @node-expand="handleNodeExpand"
-        :tree-type="treeType"
-        >
-        
-        </el-tree-node>
-
+        :render-content="renderContent" @node-expand="handleNodeExpand" :tree-type="treeType">
+        <template v-slot="slotProps">
+          <slot name="icon-node" :node="slotProps.node"></slot>
+        </template>
+      </el-tree-node>
       <div v-if="isEmpty" class="el-tree__empty-block">
         <span class="el-tree__empty-text">{{
             emptyText ?? 'No Data'

@@ -1,6 +1,6 @@
 <template>
   <div class="org-tree-node-icon" @click="handleExpandIconClick">
-    <slot name="node-icon">
+    <slot :node="node">
       <span @click="handleExpandIconClick"
         :class="['org-tree-node-btn', { 'is-leaf': node.isLeaf, 'expanded': !node.isLeaf && node.expanded }]"></span>
     </slot>

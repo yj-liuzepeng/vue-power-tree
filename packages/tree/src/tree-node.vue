@@ -2,7 +2,7 @@
   <div v-show="node.visible" ref="node$" :class="[
   
     (treeType == 'org' ? 'org-tree-node' : 'el-tree-node'),
-    {'collapsed': !expanded},
+    { 'collapsed': !expanded },
     { 'is-expanded': expanded },
     { 'is-leaf': expanded && treeType == 'org' },
     { 'is-current': node.isCurrent },
@@ -17,19 +17,10 @@
     <!-- 组织树 -->
     <div class="org-tree-node-label" v-if="treeType == 'org'">
       <node-icon v-if="node.childNodes && node.childNodes.length > 0" :node="node">
-       <!-- <slot name="node-icon-slot"></slot> -->
-        <!-- <template #node-icon>
-          <div
-          v-if="node.expanded"
-          style="border: 1px solid red; background: #fff;width: 20px; height: 20px; display: flex; align-items: center; justify-content: center"
-        >-</div>
-        <div
-          v-else
-          style="border: 1px solid red; background: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center"
-        >
-          +
-        </div>
-      </template> -->
+        <template v-slot="slotProps">
+          <slot :node="slotProps.node"></slot>
+
+        </template>
       </node-icon>
       <node-content :node="node" :render-content="renderContent" :tree-type="treeType" />
     </div>
@@ -59,7 +50,11 @@
         :aria-expanded="expanded">
         <el-tree-node v-for="child in node.childNodes" :key="getNodeKey(child)" :render-content="renderContent"
           :render-after-expand="renderAfterExpand" :show-checkbox="showCheckbox" :node="child" :accordion="accordion"
-          :props="props" @node-expand="handleChildNodeExpand" :tree-type="treeType" />
+          :props="props" @node-expand="handleChildNodeExpand" :tree-type="treeType">
+          <template v-slot="slotProps">
+            <slot :node="slotProps.node"></slot>
+          </template>
+        </el-tree-node>
       </div>
     </div>
     <div v-else>

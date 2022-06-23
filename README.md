@@ -10,12 +10,13 @@
 
 ## 介绍
 
-本插件在element-plus树形组件基础上，进行了二次封装。在具备了element-plus 的Tree组件的所有功能的基础上，又增加了**组织树**展示效果（如下），并同时支持拖拽
+本插件在element-plus树形组件基础上，进行了二次封装。适用于vue3项目，在具备了element-plus 的Tree组件的所有功能的基础上，又增加了**组织树**展示效果，并同时支持拖拽，及自定义组织树的展开收起样式
 
-![npm](https://liuzepeng.com/npm123.png)
+![npm](https://img-blog.csdnimg.cn/img_convert/16748ef14013d0f2b347849f454708ea.png)
 
 ![npm](https://liuzepeng.com/drag.png)
 
+![npm](https://liuzepeng.com/zdy.png)
 
 ## 安装
 
@@ -42,6 +43,101 @@ import VuePowerTree from "vue-power-tree"
 import "vue-power-tree/dist/style.css"
 
 <vue-power-tree :data="data"/>
+```
+
+**vue中使用示例**
+
+```vue
+<template>
+  <vue-power-tree :data="data" :props="defaultProps" draggable show-checkbox tree-type="org"
+    @node-click="handleNodeClick" default-expand-all>
+    <!-- 自定义展开收起样式 -->
+    <template v-slot:icon-node="slotProps">
+      <div v-if="slotProps.node.expanded" class="minus">
+        -</div>
+      <div v-else class="plus">
+        +
+      </div>
+    </template>
+  </vue-power-tree>
+</template>
+
+<script lang="ts" setup>
+import VuePowerTree from "vue-power-tree"
+import "vue-power-tree/dist/style.css"
+
+interface Tree {
+  label: string
+  children?: Tree[]
+}
+
+const handleNodeClick = (data: Tree) => {
+}
+
+const data: Tree[] = [
+  {
+    id: 0,
+    label: '主活动',
+    children: [
+      {
+        id: 2,
+        label: '子活动1',
+        children: [
+          {
+            id: 5,
+            label: '客群规则1'
+          },
+          {
+            id: 6,
+            label: '客群规则2'
+          }
+
+        ]
+      },
+      {
+        id: 3,
+        label: '子活动2',
+        children: [
+          {
+            id: 7,
+            label: '客群规则3'
+          },
+          {
+            id: 8,
+            label: '客群规则4'
+          }
+        ]
+      },
+      {
+        id: 4,
+        label: '子活动3'
+      },
+      {
+        id: 9,
+        label: '子活动4'
+      }
+    ]
+  }
+]
+
+const defaultProps = {
+  children: 'children',
+  label: 'label',
+}
+</script>
+
+<style>
+.minus,
+.plus {
+  border: 1px solid red;
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
 ```
 
 **本插件支持所有的element-plus的Tree组件功能，[可参照](https://element-plus.gitee.io/zh-CN/component/tree.html#%E5%B1%9E%E6%80%A7)，同时扩展了 tree-type属性 控制树形显示**
@@ -132,15 +228,20 @@ import "vue-power-tree/dist/style.css"
 
 #### 5. 插槽
 
-| 插槽名 | 说明                                                         |
-| :----- | :----------------------------------------------------------- |
-| —      | 自定义树节点的内容， 自定义树节点的内容， 参数为 ` { node, data }` |
+| 插槽名    | 说明                                                         |
+| :-------- | :----------------------------------------------------------- |
+| —         | 自定义树节点的内容， 自定义树节点的内容， 参数为 ` { node, data }` |
+| icon-node | 组织树形态下，自定义展开收起样式，可参考上面 vue中使用示例   |
 
 ## 相关仓库
 
 - [element-plus-tree](https://element-plus.gitee.io/zh-CN/component/tree.html) - 饿了么Tree组件
+- [vue-power-tree](https://github.com/yj-liuzepeng/vue-power-tree)
 
 ## 维护者
 
 [@liuzepeng](https://www.liuzepeng.com)
 
+## 其他
+欢迎访问github，star一下
+也欢迎提出issue，作者会及时完善，感谢
